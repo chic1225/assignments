@@ -107,9 +107,37 @@ public class Professor : Person {
   //**************************************
   //
   public void AgreeToTeach(Section s) {
-    Teaches.Add(s);
+      //练习14.3
+      bool theSameTime = true;
 
-    // We need to link this bidirectionally.
-    s.Instructor = this;
+      for (int i = 0; i < Teaches.Count; i++)
+      {
+
+
+          if (Teaches[i].OfferedIn == s.OfferedIn)
+          {
+              if (Teaches[i].DayOfWeek == s.DayOfWeek)
+              {
+                  if (Teaches[i].TimeOfDay == s.TimeOfDay)
+                  {
+                      theSameTime = false;
+                  }
+                  else continue;
+              }
+              else continue;
+          }
+          else continue;
+      }
+      
+      if(theSameTime){
+          Teaches.Add(s);
+          // We need to link this bidirectionally.
+          s.Instructor = this;
+      }
+      else
+      {
+          Console.WriteLine("同一天、同一时间教授上课时间冲突！");
+      }
+           
   }
 }
